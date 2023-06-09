@@ -19,8 +19,8 @@ class player:
             self.left_walk_1 = sprite("left_walk_1.gif",w=size,h=size).sprite
             self.left_walk_2 = sprite("left_walk_2.gif",w=size,h=size).sprite
 
-            self.back_walk_1 = sprite("back_walk_1.gif",w=size,h=size).sprite
-            self.back_walk_2 = sprite("back_walk_2.gif",w=size,h=size).sprite
+            self.back_walk_1 = sprite("backward_walk_1.gif",w=size,h=size).sprite
+            self.back_walk_2 = sprite("backward_walk_2.gif",w=size,h=size).sprite
 
             self.right_walk_1 = sprite("right_walk_1.gif",w=size,h=size).sprite
             self.right_walk_2 = sprite("right_walk_2.gif",w=size,h=size).sprite
@@ -30,21 +30,65 @@ class player:
         self.y = 50
         self.sprite = self.sprites.foward_idle
         self.spd = 3
-        self.walk_frame
+        self.walk_frame = 1
+        self.facing = "foward"
     def render(self):
         window.blit(self.sprite,(self.x - camera.x, self.y - camera.y))
     def controller(self):
-        if pygame.key.get_pressed()[pygame.K_w]:
-            self.sprite = self.sprites.back_idle
-            self.y -= self.spd
-        if pygame.key.get_pressed()[pygame.K_a]:
-            self.sprite = self.sprites.left_idle
-            self.x -= self.spd
-        if pygame.key.get_pressed()[pygame.K_s]:
+        if self.facing == "foward":
             self.sprite = self.sprites.foward_idle
-            self.y += self.spd
-        if pygame.key.get_pressed()[pygame.K_d]:
+        if self.facing == "left":
+            self.sprite = self.sprites.left_idle
+        if self.facing == "back":
+            self.sprite = self.sprites.back_idle
+        if self.facing == "right":
             self.sprite = self.sprites.right_idle
+
+        if pygame.key.get_pressed()[pygame.K_w]:
+            if self.walk_frame == 9:
+                self.walk_frame = 1
+            if self.walk_frame in range(1,4):
+                self.sprite = eval(f"self.sprites.back_walk_1")
+            if self.walk_frame in range(5,8):
+                self.sprite = eval(f"self.sprites.back_walk_2")
+            self.y -= self.spd
+            self.facing = "back"
+            self.walk_frame += 1
+            
+        if pygame.key.get_pressed()[pygame.K_a]:
+            if self.walk_frame == 9:
+                self.walk_frame = 1
+            if self.walk_frame in range(1,4):
+                self.sprite = eval(f"self.sprites.left_walk_1")
+            if self.walk_frame in range(5,8):
+                self.sprite = eval(f"self.sprites.left_walk_2")
+            self.x -= self.spd
+            self.facing = "left"
+            self.walk_frame += 1
+            
+        if pygame.key.get_pressed()[pygame.K_s]:
+            if self.walk_frame == 9:
+                self.walk_frame = 1
+            if self.walk_frame in range(1,4):
+                self.sprite = eval(f"self.sprites.foward_walk_1")
+            if self.walk_frame in range(5,8):
+                self.sprite = eval(f"self.sprites.foward_walk_2")
+            self.y += self.spd
+            self.facing = "foward"
+            self.walk_frame += 1
+            
+        if pygame.key.get_pressed()[pygame.K_d]:
+            if self.walk_frame == 9:
+                self.walk_frame = 1
+            if self.walk_frame in range(1,4):
+                self.sprite = eval(f"self.sprites.right_walk_1")
+            if self.walk_frame in range(5,8):
+                self.sprite = eval(f"self.sprites.right_walk_2")
             self.x += self.spd
-    
+            self.facing = "right"
+            self.walk_frame += 1
+        
+            
+                
+
 thePlayer = player()

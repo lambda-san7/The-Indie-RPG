@@ -14,10 +14,12 @@ class tile:
 class prop:
     def __init__(self,file,size=()):
         self.sprite = sprite(file,w=size[0],h=size[1]).sprite
+        self.h = size[1]
     def render(self, x, y):
         window.blit(self.sprite,(x - camera.x, y - camera.y))
 
 class none_holder:
+    h = 0
     def render(x,y):
         pass
 
@@ -29,7 +31,8 @@ tiles = [
 
 props = [
     none_holder,
-    prop("vending machine.gif",(100,100)),
+    prop("vending machine.gif",(52,80)),
+    prop("vending machine 2.gif",(52,80)),
 ]
 
 location = None
@@ -44,7 +47,7 @@ class tokyo:
     ]
     prop_map = [
         [0,0,0,0,1],
-        [0,0,0,0,0],
+        [0,0,0,0,2],
         [0,0,0,0,0],
         [0,0,0,0,0],
         [0,0,0,0,0],
@@ -63,7 +66,7 @@ class tokyo:
         y = 0
         for i in prop_map:
             for o in prop_map[prop_map.index(i)]:
-                props[o].render(x,y + 50)
+                props[o].render(x,(y - props[o].h) + 50)
                 x += 50
             x = 0
             y += 50
