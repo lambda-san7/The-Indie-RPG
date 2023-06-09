@@ -8,6 +8,7 @@ from assets import (
     camera
 )
 from player import thePlayer as player
+from enviornment import tokyo
 
 running = True
 
@@ -38,11 +39,14 @@ class hi:
 
 scene = None
 
+
 class game:
     def handle():
         window.fill((50,50,50))
         camera.x, camera.y = player.x - (pygame.display.Info().current_w / 2), player.y - (pygame.display.Info().current_h / 2)
+        tokyo.render(tokyo.loc_map)
         player.render()
+        
         player.controller()
     
 
