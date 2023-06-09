@@ -48,8 +48,6 @@ class game:
         player.render()
         
         player.controller()
-    
-
 
 ########################
 # GAME LOOP
