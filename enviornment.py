@@ -12,13 +12,16 @@ class tile:
         window.blit(self.sprite,(x - camera.x, y - camera.y))
 
 class prop:
-    def __init__(self,file,size=()):
+    def __init__(self,file,size=(),collidable=False):
         self.sprite = sprite(file,w=size[0],h=size[1]).sprite
+        self.w = size[0]
         self.h = size[1]
+        self.collidable = collidable
     def render(self, x, y):
         window.blit(self.sprite,(x - camera.x, y - camera.y))
 
 class none_holder:
+    w = 0
     h = 0
     def render(x,y):
         pass
@@ -34,8 +37,8 @@ tiles = [
 
 props = [
     none_holder,
-    prop("vending machine.gif",(52,80)),
-    prop("vending machine 2.gif",(52,80)),
+    prop("vending machine.gif",(52,80),collidable=True),
+    prop("vending machine 2.gif",(52,80),collidable=True),
     prop("pole_1.gif",(100,198)),  
     prop("wire contector.gif",(100,198)),
 ]
@@ -52,11 +55,11 @@ class tokyo:
 [1,1,1,2,2,1,1,1,1,1,1,1,1,1,2,2,1,1,1,1,1,1,1,1,1,1,2,2,1,1,1,1],
 ]
     prop_map = [
-        [0,0,0,0,0,1],
-        [0,0,0,0,0,2],
-        [3,0,4,0,3],
         [0,0,0,0,0],
         [0,0,0,0,0],
+        [3,0,3,1,2,3],
+        [0,0,0,0,0],
+        [0,2,0,0,2],
     ]
     def render(loc_map, prop_map):
         x = 0
@@ -76,3 +79,15 @@ class tokyo:
                 x += 50
             x = 0
             y += 50
+    def collision(prop_map):
+        collisions = []
+        for i, sublist in enumerate(prop_map):
+            for j, o in enumerate(sublist):
+                if o != 0:
+                    if props[o].collidable:
+                        x = j * 50 
+                        y = ((i * 50) - props[o].h) + 50
+                        w = props[o].w
+                        h = props[o].h
+                        collisions.append((x, y, w, h))
+        return collisions

@@ -46,7 +46,6 @@ class game:
         camera.x, camera.y = player.x - (pygame.display.Info().current_w / 2), player.y - (pygame.display.Info().current_h / 2)
         tokyo.render(tokyo.loc_map,tokyo.prop_map)
         player.render()
-        
         player.controller()
 
 ########################

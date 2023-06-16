@@ -5,7 +5,6 @@ pygame.init()
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
-pygame.display.set_caption("Template")
 
 #pygame.display.set_icon(favicon)
 
@@ -42,7 +41,7 @@ class camera:
 
 def create_window(w=1000,h=500,title="Blank",favicon="favicon.png"):
     window = pygame.display.set_mode((w,h),pygame.RESIZABLE)
-    pygame.display.set_caption(title)
+    pygame.display.set_caption("The Indie Dev RPG")
     #pygame.display.set_icon(favicon)
     return window
 
@@ -96,6 +95,12 @@ class text:
         window.blit(self.text,(x,y + self.border_thickness))
         window.blit(self.text,(x - self.border_thickness,y))
         window.blit(self.text,(x + self.border_thickness,y))
+
+        window.blit(self.text,(x  - self.border_thickness,y - self.border_thickness))
+        window.blit(self.text,(x  - self.border_thickness,y + self.border_thickness))
+        window.blit(self.text,(x + self.border_thickness,y - self.border_thickness))
+        window.blit(self.text,(x + self.border_thickness,y + self.border_thickness))
+
         self.text = self.font.render(self.text_holder, True, self.color)
         window.blit(self.text,(x,y))
 
@@ -140,4 +145,3 @@ class input:
                     letter = chr(event.key)
                     modified_title = self.content[:-1]
                     self.content = modified_title
-
