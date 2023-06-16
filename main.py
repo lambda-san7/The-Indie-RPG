@@ -24,10 +24,6 @@ visible = False
 
 scene = None
 
-class hi:
-    def handle():
-        window.fill((50,50,50))
-
 
 #    lambda : (
  #       window.fill((50,50,50)),
