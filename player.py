@@ -117,6 +117,13 @@ class player:
             self.x += self.spd
             self.facing = "right"
             self.walk_frame += 1
+        
+        if pygame.key.get_pressed()[pygame.K_e]:
+            for i in tokyo.collision(tokyo.prop_map):
+                if self.collision(i,(self.x,self.y - 50)):
+                    print(i[4])
+                    if i[4] == "711":
+                        print("you want a slushie?")
 
     def collision(self,obj,player):
         x = obj[0]

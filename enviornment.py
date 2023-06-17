@@ -12,11 +12,12 @@ class tile:
         window.blit(self.sprite,(x - camera.x, y - camera.y))
 
 class prop:
-    def __init__(self,file,size=(),collidable=False):
+    def __init__(self,name,file,size=(),collidable=False):
         self.sprite = sprite(file,w=size[0],h=size[1]).sprite
         self.w = size[0]
         self.h = size[1]
         self.collidable = collidable
+        self.name = name
     def render(self, x, y):
         window.blit(self.sprite,(x - camera.x, y - camera.y))
 
@@ -37,16 +38,16 @@ tiles = [
 
 props = [
     none_holder,
-    prop("vending machine.gif",(52,80),collidable=True),
-    prop("vending machine 2.gif",(52,80),collidable=True),
-    prop("pole_1.gif",(100,198)),
-    prop("pole_2.gif",(100,198)),
-    prop("wire contector.gif",(100,198)),
-    prop("convenience_store.gif",(200,198),collidable=True),
-    prop("street_light.gif",(100,198)),
-    prop("car_1.gif",(174,90),collidable=True),
-    prop("car_2.gif",(200,100),collidable=True),
-    prop("car_3.gif",(200,100),collidable=True),
+    prop("vending machine","vending machine.gif",(52,80),collidable=True),
+    prop("vending machine","vending machine 2.gif",(52,80),collidable=True),
+    prop("power line","pole_1.gif",(100,198)),
+    prop("power line","pole_2.gif",(100,198)),
+    prop("wires","wire contector.gif",(100,198)),
+    prop("711","convenience_store.gif",(200,198),collidable=True),
+    prop("light","street_light.gif",(100,198)),
+    prop("car","car_1.gif",(174,90),collidable=True),
+    prop("car","car_2.gif",(200,100),collidable=True),
+    prop("car","car_3.gif",(200,100),collidable=True),
 ]
 
 location = None
@@ -96,5 +97,5 @@ class tokyo:
                         y = ((i * 50) - props[o].h) + 50
                         w = props[o].w
                         h = props[o].h
-                        collisions.append((x, y, w, h))
+                        collisions.append((x, y, w, h, props[o].name))
         return collisions
