@@ -44,7 +44,7 @@ props = [
     prop("wire contector.gif",(100,198)),
     prop("convenience_store.gif",(200,198),collidable=True),
     prop("street_light.gif",(100,198)),
-    prop("car_1.gif",(200,100),collidable=True),
+    prop("car_1.gif",(174,90),collidable=True),
     prop("car_2.gif",(200,100),collidable=True),
     prop("car_3.gif",(200,100),collidable=True),
 ]
