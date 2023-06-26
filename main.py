@@ -24,18 +24,6 @@ visible = False
 
 scene = None
 
-
-#    lambda : (
- #       window.fill((50,50,50)),
-  #      msg := assets.text(10,"I'm tired of tools only having typed out docs..."),
-   #     msg.render(10,10),
-    #    hover_button := assets.button("Hover over me!", 32, (255, 255, 255)),
-     #   (hover_button := assets.button("So mine is interactive...", 32, (255, 255, 255))) if hover_button.hover() else None
-      #  hover_button.render()
-
-scene = None
-
-
 class game:
     def handle():
         window.fill((50,50,50))
