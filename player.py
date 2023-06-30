@@ -37,8 +37,14 @@ class player:
         self.facing = "foward"
     def render(self):
         location.render(location.loc_map)
-        location.renderProps(location.prop_map)
         window.blit(self.sprite,(self.x - camera.x, self.y - camera.y))
+        location.renderProps(location.prop_map)
+        for i in location.collision(location.prop_map):
+            if self.collision(i,(self.x,self.y - 50)):
+                location.renderProps(location.prop_map)
+                window.blit(self.sprite,(self.x - camera.x, self.y - camera.y))
+            
+        
     def controller(self):
         if self.facing == "foward":
             self.sprite = self.sprites.foward_idle
@@ -124,8 +130,6 @@ class player:
             for i in location.collision(location.prop_map):
                 if self.collision(i,(self.x,self.y - 50)):
                     print(i[4])
-                    if i[4] == "711":
-                        print("you want a slushie?")
 
     def collision(self,obj,player):
         x = obj[0]
