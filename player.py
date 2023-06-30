@@ -1,5 +1,5 @@
 import pygame
-from enviornment import tokyo
+from enviornment import location
 from assets import (
     sprite,
     window,
@@ -36,6 +36,8 @@ class player:
         self.walk_frame = 1
         self.facing = "foward"
     def render(self):
+        location.render(location.loc_map)
+        location.renderProps(location.prop_map)
         window.blit(self.sprite,(self.x - camera.x, self.y - camera.y))
     def controller(self):
         if self.facing == "foward":
@@ -54,10 +56,10 @@ class player:
             pass
 
         if pygame.key.get_pressed()[pygame.K_w]:
-            tokyo.collision(tokyo.prop_map)
+            location.collision(location.prop_map)
             if self.y + 40 <= 0:
                 return
-            for i in tokyo.collision(tokyo.prop_map):
+            for i in location.collision(location.prop_map):
                 if self.collision(i,(self.x,self.y - self.spd)):
                     return
             if self.walk_frame == 9:
@@ -73,7 +75,7 @@ class player:
         if pygame.key.get_pressed()[pygame.K_a]:
             if self.x <= 0:
                 return
-            for i in tokyo.collision(tokyo.prop_map):
+            for i in location.collision(location.prop_map):
                 if self.collision(i, (self.x - self.spd,self.y)):
                     return
             if self.walk_frame == 9:
@@ -87,9 +89,9 @@ class player:
             self.walk_frame += 1
             
         if pygame.key.get_pressed()[pygame.K_s]:
-            if self.y + 50 >= len(tokyo.loc_map) * 50:
+            if self.y + 50 >= len(location.loc_map) * 50:
                 return
-            for i in tokyo.collision(tokyo.prop_map):
+            for i in location.collision(location.prop_map):
                 if self.collision(i,(self.x, self.y + self.spd)):
                     return
             if self.walk_frame == 9:
@@ -103,9 +105,9 @@ class player:
             self.walk_frame += 1
             
         if pygame.key.get_pressed()[pygame.K_d]:
-            if self.x + 50 >= len(tokyo.loc_map[0]) * 50:
+            if self.x + 50 >= len(location.loc_map[0]) * 50:
                 return
-            for i in tokyo.collision(tokyo.prop_map):
+            for i in location.collision(location.prop_map):
                 if self.collision(i,(self.x + self.spd,self.y)):
                     return
             if self.walk_frame == 9:
@@ -119,7 +121,7 @@ class player:
             self.walk_frame += 1
         
         if pygame.key.get_pressed()[pygame.K_e]:
-            for i in tokyo.collision(tokyo.prop_map):
+            for i in location.collision(location.prop_map):
                 if self.collision(i,(self.x,self.y - 50)):
                     print(i[4])
                     if i[4] == "711":
@@ -130,8 +132,8 @@ class player:
         y = obj[1]
         w = obj[2]
         h = obj[3]
-        if (player[0] + 10 < x + w and
-            player[0] + 40 > x and
+        if (player[0] + 20 < x + w and
+            player[0] + 30 > x and
             player[1] + 40 < y + h and 
             player[1] + 50 > y):
             return True

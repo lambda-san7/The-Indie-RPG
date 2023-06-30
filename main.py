@@ -28,7 +28,8 @@ class game:
     def handle():
         window.fill((50,50,50))
         camera.x, camera.y = player.x - (pygame.display.Info().current_w / 2), player.y - (pygame.display.Info().current_h / 2)
-        tokyo.render(tokyo.loc_map,tokyo.prop_map)
+        #tokyo.render(tokyo.loc_map)
+       # tokyo.renderProps(tokyo.prop_map)
         player.render()
         player.controller()
 
