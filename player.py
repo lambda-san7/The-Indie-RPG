@@ -34,7 +34,7 @@ class player:
         self.sprite = self.sprites.foward_idle
         self.spd = 3
         self.walk_frame = 1
-        self.collisions = True
+        self.collisions = False
         self.facing = "foward"
     def render(self):
         location.render()
@@ -63,8 +63,7 @@ class player:
             pass
 
         if pygame.key.get_pressed()[pygame.K_w]:
-            location.collision()
-            if self.y + 40 <= 0:
+            if self.world_border("w"):
                 return
             for i in location.collision():
                 if self.collision(i,(self.x,self.y - self.spd)):
@@ -80,7 +79,7 @@ class player:
             self.walk_frame += 1
             
         if pygame.key.get_pressed()[pygame.K_a]:
-            if self.x <= 0:
+            if self.world_border("a"):
                 return
             for i in location.collision():
                 if self.collision(i, (self.x - self.spd,self.y)):
@@ -96,7 +95,7 @@ class player:
             self.walk_frame += 1
             
         if pygame.key.get_pressed()[pygame.K_s]:
-            if self.y + 50 >= len(location.loc_map) * 50:
+            if self.world_border("s"):
                 return
             for i in location.collision():
                 if self.collision(i,(self.x, self.y + self.spd)):
@@ -112,7 +111,7 @@ class player:
             self.walk_frame += 1
             
         if pygame.key.get_pressed()[pygame.K_d]:
-            if self.x + 50 >= len(location.loc_map[0]) * 50:
+            if self.world_border("d"):
                 return
             for i in location.collision():
                 if self.collision(i,(self.x + self.spd,self.y)):
@@ -145,6 +144,25 @@ class player:
                 return True
             return False
         return
+    
+    def world_border(self,direction):
+        if self.collisions:
+            match direction:
+                case "w":
+                    if self.y + 40 <= 0:
+                        return True
+                case "a":
+                    if self.x <= 0:
+                        return True
+                case "s":
+                    if self.y + 50 >= len(location.loc_map) * 50:
+                        return True
+                case "d":
+                    if self.x + 50 >= len(location.loc_map[0]) * 50:
+                        return True
+        return
                 
+
+
 
 thePlayer = player()
